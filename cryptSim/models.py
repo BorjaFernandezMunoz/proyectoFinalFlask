@@ -4,12 +4,13 @@ import os
 import sqlite3
 
 from flask import app
+
 import requests
 
 
 RUTADB = 'cryptSim/data/movimientosCryptSim.db'
 
-apikey = '8C7855D2-637B-45D6-A953-E83C0AF8DC8C'
+apikey = '8C7855D2-637B-45D6-A953-E83C0AF8DC8C' #'tu-clave-coinapi'
 # apikey = '60f21295-81aa-42cf-9d0b-c7b4d5c5d9cf' la de cumon
 
 server = 'http://rest.coinapi.io'
@@ -20,7 +21,9 @@ headers = {'X-CoinAPI-Key': apikey}
 
 
 def extraer_rate_de_coinapi(divisa_origen, divisa_destino):
-
+    """
+    Función que utilizamos para extraer el ratio entre la divisa de origen y la divisa de destino en distintos momentos del programa.
+    """
     coinapi_url = server + endpoint + '/' + divisa_origen + '/' + divisa_destino
 
     response = requests.get(coinapi_url, headers=headers)
@@ -30,7 +33,6 @@ def extraer_rate_de_coinapi(divisa_origen, divisa_destino):
         exchange = response.json()
         rate = exchange.get('rate', 0)
         
-
         return rate
 
     else:
@@ -39,8 +41,9 @@ def extraer_rate_de_coinapi(divisa_origen, divisa_destino):
         return mensaje        
      
 def formatear_numeros(numero):
-
-
+    """
+    Función que utilizamos para darles a los números el formato español.
+    """
     locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
     
     str_numero= str(numero)
@@ -56,7 +59,7 @@ def formatear_numeros(numero):
 
 class DBManager:
     """
-    Clase para interactuar con la base de datos
+    Clase que permite interactuar con la base de datos.
     """
     def __init__(self, ruta):
 
@@ -125,7 +128,6 @@ class DBManager:
                 movimiento.cantidad,
                 movimiento.divisa_destino,
                 movimiento.precio_unitario,
-               # movimiento.id
             )
             cursor.execute(sql, params)
             conexion.commit()
@@ -178,7 +180,9 @@ class Movimiento:
         return self.__str__()
     
 class ListaMovimientos:
-
+    """
+    Clase que nos permite instanciar la lista de movimientos guardada en la base de datos, con sus atributos y métodos propios.
+    """
     def __init__(self):
 
         try:
@@ -217,7 +221,8 @@ class ListaMovimientos:
     
     def inversion_recuperada(self, divisa):
         """
-        Recorre los movimientos realizados, y si hay alguna inversión en alguna divisa concreta, se suma al total disponible de esa divisa"""
+        Recorre los movimientos realizados, y si hay alguna inversión en alguna divisa concreta, se suma al total disponible de esa divisa.
+        """
         for movimiento in self.movimientos:
 
             if divisa == movimiento['divisa_destino']:
@@ -259,7 +264,6 @@ class ListaMovimientos:
 
 
     def valor_inversion_euros(self):
-
         """
         Recorre la lista de totales por divisa, conecta con Coinapi y transforma el valor actual de las divisas acumuladas en euros.
         """ 
@@ -273,9 +277,6 @@ class ListaMovimientos:
 
         return total_euros
     
-#dict_mov = {'id':3,'fecha':'12-03-2024','hora':'20:00','desde':'ETH', 'cantidad':1, 'a':'BTC', 'precio unitario':2.3}
-
-#TODO: mirar página 9 del pdf-
 
 # TODO: en views, en la página de simulación de movimiento, ordenarla tal y como se presenta en el pdf. 
 # Hay que mostrar la cantidad que se puede adquirir de la divisa destino cuando se pulsa la calculadora; cuando se pulsa la calculadora

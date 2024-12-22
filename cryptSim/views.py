@@ -1,5 +1,3 @@
-from datetime import date
-
 from flask import flash, redirect, render_template, request, url_for
 
 from cryptSim.forms import MovimientoForm
@@ -9,7 +7,6 @@ from . import app
 from .models import RUTADB, DBManager, Movimiento, ListaMovimientos, formatear_numeros
 
 @app.route('/')
-# Aparece la lista de todos los movimientos y el estado de la inversión.
 def home():
 
     lista = ListaMovimientos()
