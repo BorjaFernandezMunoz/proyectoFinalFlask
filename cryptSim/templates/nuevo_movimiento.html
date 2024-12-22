@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block page_title%}
+<h1>Agregar movimiento</h1>
+{% endblock page_title %}
+
+{% block contenido %}
+<form action="/nuevo" method="post">
+
+  <!-- Divisa  -->
+  <div class="campo-formulario">
+    <label for="divisa_origen">Divisa origen</label>
+    <input type="text" name="divisa_origen" id="divisa_origen" required>
+  </div>
+  
+  <!-- Cantidad -->
+  <div class="campo-formulario">
+    <label for="cantidad">Cantidad</label>
+    <input type="number" name="cantidad" id="cantidad" step=".01" min=".01" required>
+  </div>
+
+  <!-- Divisa  -->
+  <div class="campo-formulario">
+    <label for="divisa_destino">Divisa destino</label>
+    <input type="text" name="concepto" id="concepto" required>
+  </div>
+
+  <!-- Botón de enviar -->
+  <div class="acciones">
+    <button type="submit"></button>
+
+  {% for message in get_flashed_messages() %}
+    <h2>{{ message }}</h2>
+  {% endfor %}
+  </div>
+</form>
+
+
+
+{% endblock contenido %}

@@ -1,0 +1,25 @@
+Flask==3.1.0
+Flask-Cors==5.0.0
+Flask-WTF==1.2.2
+python-dotenv==1.0.1
+pytz==2024.2
+requests==2.32.3
+
+# Código SQL para la creación de la tabla:
+# CREATE TABLE "movimientos" (
+#	"id"	INTEGER NOT NULL UNIQUE,
+#	"fecha"	TEXT NOT NULL,
+#	"hora"	TEXT NOT NULL,
+#	"divisa_origen"	TEXT NOT NULL,
+#	"cantidad"	NUMERIC NOT NULL,
+#	"divisa_destino"	TEXT NOT NULL,
+#	"precio_unitario"	NUMERIC NOT NULL,
+#	PRIMARY KEY("id" AUTOINCREMENT)
+#);
+#<!---->  <div class="readonly" aria-readonly="true">
+
+#    {{ form.cantidad_divisa_destino.label}}
+ #   {{ form.cantidad_divisa_destino }}
+
+
+#  </div>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block page_title%}
+<h1 class= "titulo"> Agregar Nuevo Movimiento </h1>
+{% endblock page_title %}
+
+{% block contenido %}
+
+{% if form.errors %}
+<div class="errores">
+  <p>
+    El formulario tiene errores. ¿Puedes corregirlos?
+  </p>
+
+  <ul>
+    {{ form.errors}}
+  </ul>
+</div>
+{% endif %}
+
+<form action="/nuevo_movimiento" method="post" novalidate>
+  {{ form.csrf_token }}
+
+  <div class="campo-formulario">
+    {{ form.divisa_origen.label }}
+    {{ form.divisa_origen }}
+  </div>
+
+  <div class="campo-formulario">
+    {{ form.cantidad.label }}
+    {{ form.cantidad }}
+  </div>
+
+  <div class="campo-formulario">
+    {{ form.divisa_destino.label }}
+    {{ form.divisa_destino }}
+  </div>
+
+  <div class="acciones">
+    {{ form.submit }}
+  </div>
+</form>
+
+{% endblock contenido %}

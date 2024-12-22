@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+{{ super() }}: Inicio
+{% endblock head_title %}
+
+{% block page_title %}
+<h1 class= "titulo"> Listado de movimientos </h1>
+{% endblock page_title %}
+
+{% block contenido %}
+<table class="tabla">
+
+  <tr class="fila">
+    <th class="cabecera fecha">Fecha</th>
+    <th class="cabecera hora">Hora</th>
+    <th class="cabecera">Divisa Origen</th>
+    <th class="cabecera">Cantidad Invertida</th>
+    <th class="cabecera">Divisa Destino</th>
+    <th class="cabecera">Precio por unidad</th>
+    <th class="cabecera">Cantidad obtenida</th>
+  </tr>
+  {% if movs %}
+  {% for m in movs %}
+  <tr class="fila">
+    <td class="dato">{{ m.fecha }}</td>
+    <td class="dato">{{ m.hora }}</td>
+    <td class="dato">{{ m.divisa_origen }}</td>
+    <td class="dato numero">{{ m.cantidad }}</td>
+    <td class="dato">{{ m.divisa_destino }}</td>
+    <td class="dato numero">{{ m.precio_unitario }}</td>
+    <td class="dato numero">{{ m.cantidad_divisa_destino }}</td>
+    </td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <tr class="fila">
+    <td class="lista-vacia" colspan="4">No hay movimientos</td>
+  </tr>
+  {% endif %}
+</table>
+{% endblock contenido %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+{{ super() }}: Estado de la inversión
+{% endblock head_title %}
+
+{% block page_title %}
+<h1 class= "titulo"> Estado de la inversión </h1>
+{% endblock page_title %}
+
+{% block contenido %}
+
+<table class="tabla">
+
+  <tr class="fila">
+    <th class="cabecera">Total invertido en euros</th>
+    <th class="cabecera">Estado actual inversion</th>
+    <th class="cabecera">Balance actual de la inversión</th>
+
+  </tr>
+  <tr class="fila">
+    <td class="dato numero">{{ euros_invertidos }}</td>
+    <td class="dato numero">{{ euros_actual }}</td>
+    <td class="dato numero">{{ total_actual }}</td>
+
+  </tr>
+
+</table>
+{% endblock contenido %}

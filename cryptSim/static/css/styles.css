@@ -1,0 +1,123 @@
+:root {
+    --primary-color: #393e50;
+    --secondary-color: #6f6f93;
+  
+    --text-color:  #03910f;
+
+    --errores: #720303;
+
+    --neutral-100: #f0f0f0;
+    --neutral-60: #666666;
+    
+    --standard-border: solid 3px var(--text-color);
+  }
+
+  @font-face {
+    font-family: 'Alien';
+    src: url('/static/webfonts/Alien-Encounters-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: 'Technology';
+    src: url('/static/webfonts/Technology.ttf');
+  }
+  .acciones {
+    position:relative;
+    left: 260px;
+  }
+  header {
+    --header-height: 80px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    height: var(--header-height);
+    line-height: var(--header-height);
+    text-align: center;
+    padding-left: 20px;
+    font-family: 'Alien', italic;
+    font-size: xx-large;
+  }
+  
+  .navbar {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    height: 20px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Technology';
+    font-size: large;
+  }
+
+  .footer {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+    border-top: var(--standard-border);
+  }
+  
+  .main {
+    max-width: 1520px;
+    margin: auto;
+    padding: 20px;
+    background-color: var(--secondary-color);
+  }
+
+  .campo-formulario {
+    position:relative;
+    top: -30px;
+    left: 250px;
+    font-family: 'Technology';
+    font-size: large;
+    padding: 10px;
+  }
+
+  .errores {
+    font-family: 'Technology';
+    position: relative;
+    top: -40px;
+    color: var(--errores);
+  }
+
+  .tabla {
+    position: relative;
+    top: -45px;
+    table-layout: fixed;
+    height: 100px;
+    width: 100%;
+    padding-bottom: 50px;
+    border-collapse: collapse;
+    border: 3px solid --primary-color;
+    font-family: 'Technology';
+    font-size: large;
+    text-align: right;
+  }
+  
+  .th {
+    font-style: bold;
+    font-size: x-large;
+    padding: 20px;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: var(--primary-color);
+    color: var(--secondary-color)
+  }
+
+
+  .titulo {
+    height: 40px;
+    padding-top: 15px;
+    position: relative;
+    top: -30px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: 'Technology', bold;
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
+  }
+
