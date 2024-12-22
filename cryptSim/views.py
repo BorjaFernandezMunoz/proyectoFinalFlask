@@ -9,6 +9,7 @@ from .models import RUTADB, DBManager, Movimiento, ListaMovimientos, formatear_n
 @app.route('/')
 def home():
 
+    db=DBManager(RUTADB)
     lista = ListaMovimientos()
     lista.cargar_movimientos()
 
@@ -16,7 +17,7 @@ def home():
 
     for movimiento in lista.movimientos:
         for clave in movimiento:
-            if clave=='cantidad' or clave=='precio_unitario' or clave=='cantidad_divisa_destino':
+            if movimiento[clave]!='EUR' and (clave=='cantidad' or clave=='precio_unitario' or clave=='cantidad_divisa_destino'):
                 movimiento[clave]=formatear_numeros(movimiento[clave])
 
     return render_template('inicio.html', movs=lista.movimientos)
@@ -30,6 +31,7 @@ def nuevo_movimiento():
 
     if request.method == 'POST':
         db = DBManager(RUTADB)
+        
         formulario = MovimientoForm(data=request.form)
         lista = ListaMovimientos()
         lista.cargar_movimientos()
@@ -41,25 +43,33 @@ def nuevo_movimiento():
                 'divisa_destino': formulario.divisa_destino.data
             }
 
-            lista.actualizar_lista_total_invertido_por_divisas()
+            if mov_dict['divisa_origen']!=mov_dict['divisa_destino']:
 
-            if mov_dict['cantidad']<lista.lista_total_por_divisa[f'{mov_dict['divisa_origen']}'] or mov_dict['divisa_origen']=='EUR':
+                lista.actualizar_lista_total_invertido_por_divisas()
 
-                movimiento = Movimiento(mov_dict)
+                if mov_dict['cantidad']<lista.lista_total_por_divisa[f'{mov_dict['divisa_origen']}'] or mov_dict['divisa_origen']=='EUR':
 
-                db.agregar_movimiento(movimiento)
-                flash('¡Movimiento registrado correctamente!','success')
+                    movimiento = Movimiento(mov_dict)
+
+                    db.agregar_movimiento(movimiento)
+
+                    flash('¡Movimiento registrado correctamente!','success')
                 
-                return redirect(url_for('home'))
+                    return redirect(url_for('home'))
             
-            elif mov_dict['cantidad']>=lista.lista_total_por_divisa[f'{mov_dict['divisa_origen']}'] and mov_dict['divisa_origen']!='EUR':
-                
-                flash('No dispones de la cantidad suficiente de divisa para realizar la operación. Por favor, inténtalo de nuevo.', 'error')
-                
-                return render_template('form_movimiento.html', form=formulario)
+                elif mov_dict['cantidad']>=lista.lista_total_por_divisa[f'{mov_dict['divisa_origen']}'] and mov_dict['divisa_origen']!='EUR':
 
-        else: 
-            return render_template('form_movimiento.html', form=formulario)
+                    flash('No dispones de la cantidad suficiente de divisa para realizar la operación. Por favor, inténtalo de nuevo.', 'error')
+                
+                    return render_template('form_movimiento.html', form=formulario)
+
+                else: 
+                    return render_template('form_movimiento.html', form=formulario)
+                
+            elif mov_dict['divisa_origen']==mov_dict['divisa_destino']:
+                    
+                flash('La divisa origen y la divisa destino son la misma. Por favor, inténtalo de nuevo.')
+                return render_template('form_movimiento.html', form=formulario)
 
     return redirect(url_for('home'))
 

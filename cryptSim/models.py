@@ -10,8 +10,7 @@ import requests
 
 RUTADB = 'cryptSim/data/movimientosCryptSim.db'
 
-apikey = '8C7855D2-637B-45D6-A953-E83C0AF8DC8C' #'tu-clave-coinapi'
-# apikey = '60f21295-81aa-42cf-9d0b-c7b4d5c5d9cf' la de cumon
+apikey =  'tu-clave-coinapi'
 
 server = 'http://rest.coinapi.io'
 
@@ -50,10 +49,10 @@ def formatear_numeros(numero):
 
     if '.' in str_numero:
 
-        str_numero=f'{locale.format_string("%.6f", numero, grouping=True)} €'
+        str_numero=locale.format_string("%.6f", numero, grouping=True)
  
     else: 
-        str_numero=locale.currency(numero, grouping=True)   
+        str_numero=locale.format_string("%.2f", numero, grouping=True)   
 
     return str_numero
 
@@ -69,17 +68,18 @@ class DBManager:
             cursor = conexion.cursor()
 
             cursor.execute('''CREATE TABLE "movimientosCryptSim" ( 
-                            "id"	INTEGER NOT NULL UNIQUE,
+                            "id" INTEGER NOT NULL UNIQUE,
                             "fecha"	TEXT NOT NULL,
                             "hora" TEXT NOT NULL,
                             "divisa_origen" TEXT NOT NULL, 
                             "cantidad" NUMERIC NOT NULL, 
                             "divisa_destino" TEXT NOT NULL,
-                            "precio_unitario"	NUMERIC NOT NULL,
-                            "cantidad_divisa_destino"	NUMERIC NOT NULL, 
+                            "precio_unitario" NUMERIC NOT NULL,
+                            "cantidad_divisa_destino" NUMERIC NOT NULL, 
                             PRIMARY KEY("id" AUTOINCREMENT))''')
+            conexion.commit()
+            conexion.close()
             
-        
             self.ruta = ruta
 
         else:
@@ -277,11 +277,3 @@ class ListaMovimientos:
 
         return total_euros
     
-
-# TODO: en views, en la página de simulación de movimiento, ordenarla tal y como se presenta en el pdf. 
-# Hay que mostrar la cantidad que se puede adquirir de la divisa destino cuando se pulsa la calculadora; cuando se pulsa la calculadora
-# aparece la cantidad y se activa el botón de validar.
-
-# TODO: investigar cómo confirmar. Cuando se le da al botón de la calculadora, nos puede redirigir a otra página donde el botón de confirmar está ya activo.
-
-# TODO: cuestiones estilísticas.

@@ -21,10 +21,7 @@
     font-family: 'Technology';
     src: url('/static/webfonts/Technology.ttf');
   }
-  .acciones {
-    position:relative;
-    left: 260px;
-  }
+
   header {
     --header-height: 80px;
     background-color: var(--primary-color);
@@ -47,6 +44,10 @@
     font-size: large;
   }
 
+  .navbar a:link, .navbar a:active, .navbar a:visited {
+    color: var(--primary-color);
+  }
+
   .footer {
     font-family: Arial, Helvetica, sans-serif;
     padding: 15px;
@@ -58,6 +59,11 @@
     margin: auto;
     padding: 20px;
     background-color: var(--secondary-color);
+  }
+
+  .acciones {
+    position:relative;
+    left: 260px;
   }
 
   .campo-formulario {
@@ -76,6 +82,15 @@
     color: var(--errores);
   }
 
+  .flash-messages {
+    font-family: 'Technology';
+    color: var(--text-color);
+    size: 100px;
+  }
+  .lista-vacia {
+    text-align: center;
+    font-size: large;
+  }
   .tabla {
     position: relative;
     top: -45px;
@@ -90,6 +105,7 @@
     text-align: right;
   }
   
+
   .th {
     font-style: bold;
     font-size: x-large;
@@ -106,8 +122,7 @@
     background-color: var(--primary-color);
     color: var(--secondary-color)
   }
-
-
+  
   .titulo {
     height: 40px;
     padding-top: 15px;

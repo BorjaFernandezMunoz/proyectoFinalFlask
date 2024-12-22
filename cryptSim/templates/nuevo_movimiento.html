@@ -7,6 +7,12 @@
 {% block contenido %}
 <form action="/nuevo" method="post">
 
+  <body>
+    {% for mesg in get_flashed_messages() %}
+    <h1>{{ mesg }}</h1>
+    {% endfor %}
+  </body>
+  
   <!-- Divisa  -->
   <div class="campo-formulario">
     <label for="divisa_origen">Divisa origen</label>
@@ -28,13 +34,7 @@
   <!-- Botón de enviar -->
   <div class="acciones">
     <button type="submit"></button>
-
-  {% for message in get_flashed_messages() %}
-    <h2>{{ message }}</h2>
-  {% endfor %}
   </div>
 </form>
-
-
 
 {% endblock contenido %}

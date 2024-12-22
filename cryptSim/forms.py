@@ -10,7 +10,7 @@ from wtforms.validators import DataRequired, NumberRange
 
 
 class MovimientoForm(FlaskForm):
-   # id = HiddenField()
+
     fecha = DateField()
     hora = DateField()
     divisa_origen = SelectField(u'Divisa origen', 
@@ -35,6 +35,5 @@ class MovimientoForm(FlaskForm):
                                          ], validators=[
         DataRequired('No has especificado una divisa válida')
     ])
- #   cantidad_divisa_destino = DecimalField('Cantidad a adquirir', places=2)
 
     submit = SubmitField('Guardar')
